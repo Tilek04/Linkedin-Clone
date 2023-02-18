@@ -18,14 +18,16 @@ function Feed() {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
-    db.collection("post").orderBy("timestamp", "desc").onSnapshot((snapshot) =>
-      setPost(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
+    db.collection("post")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setPost(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
   }, []);
 
   const sendPost = (e) => {
@@ -37,10 +39,9 @@ function Feed() {
       photoUrl: "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    setInput('')
+    setInput("");
   };
-console.log(sendPost);
-  
+  console.log(sendPost);
 
   return (
     <div className="feed">
@@ -79,8 +80,6 @@ console.log(sendPost);
           photoUrl={photoUrl}
         />
       ))}
-   
-     
     </div>
   );
 }
